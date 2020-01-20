@@ -11,7 +11,7 @@ import testUtility
 from collections import defaultdict
 
 #Get player names
-player_names = testUtility.GetPlayers(random.randint(2, 4))
+player_names = testUtility.GetPlayers(1) #Bug only 1 player
 
 #number of curses and victory cards
 if len(player_names)>2:

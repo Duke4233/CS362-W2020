@@ -42,10 +42,10 @@ supply = defaultdict(list,[(k,box[k]) for k in random10])
 #The supply always has these cards
 supply["Copper"]=[Dominion.Copper()]*(60-len(player_names)*7)
 supply["Silver"]=[Dominion.Silver()]*40
-supply["Gold"]=[Dominion.Gold()]*30
+supply["Gold"]=[Dominion.Gold()]*0 # bug 0 gold cards
 supply["Estate"]=[Dominion.Estate()]*nV
-supply["Duchy"]=[Dominion.Duchy()]*nV
-supply["Province"]=[Dominion.Province()]*nV
+supply["Duchy"]=[Dominion.Duchy()]*1
+supply["Province"]=[Dominion.Province()]*1 # Note bug 1 the first province is the last province
 supply["Curse"]=[Dominion.Curse()]*nC
 
 #initialize the trash
