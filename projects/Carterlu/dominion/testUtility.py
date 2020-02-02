@@ -9,7 +9,14 @@ import Dominion
 import random
 from collections import defaultdict
 
-
+def SetVicCoin(player_names):
+	# number of curses and victory cards
+	if len(player_names) > 2:
+		nV = 12
+	else:
+		nV = 8
+	nC = -10 + 10 * len(player_names)
+	return nC, nV
 def CreateBox(nV):
 #Define box
 	box = {}
@@ -40,6 +47,15 @@ def CreateBox(nV):
 	box["Throne Room"]=[Dominion.Throne_Room()]*10
 	return box
 
+def InitializeSupplyOrder():
+	supply_order = {0: ['Curse', 'Copper'], 2: ['Estate', 'Cellar', 'Chapel', 'Moat'],
+					3: ['Silver', 'Chancellor', 'Village', 'Woodcutter', 'Workshop'],
+					4: ['Gardens', 'Bureaucrat', 'Feast', 'Militia', 'Moneylender', 'Remodel', 'Smithy', 'Spy', 'Thief',
+						'Throne Room'],
+					5: ['Duchy', 'Market', 'Council Room', 'Festival', 'Laboratory', 'Library', 'Mine', 'Witch'],
+					6: ['Gold', 'Adventurer'], 8: ['Province']}
+	return supply_order
+
 
 def InitializePlayers(player_names):
 	players = []
@@ -64,3 +80,19 @@ def GetPlayers(numPlayers):
 		playerComp_Names.remove(name)
 	pass
 	return player_names
+
+
+def SetSupply(box, player_names, nV, nC):
+	boxlist = [k for k in box]
+	random.shuffle(boxlist)
+	random10 = boxlist[:10]
+	supply = defaultdict(list, [(k, box[k]) for k in random10])
+	supply["Copper"] = [Dominion.Copper()] * (60 - len(player_names) * 7)
+	supply["Silver"] = [Dominion.Silver()] * 40
+	supply["Gold"] = [Dominion.Gold()] * 30
+	supply["Estate"] = [Dominion.Estate()] * nV
+	supply["Duchy"] = [Dominion.Duchy()] * nV
+	supply["Province"] = [Dominion.Province()] * nV
+	supply["Curse"] = [Dominion.Curse()] * nC
+
+	return supply
